@@ -16,40 +16,63 @@ namespace dbSetup
             var connectionString = $"Host=localhost;Port=5432;Username={dbusername};Password={dbPassword};";
             var connectionDBString = $"Host=localhost;Port=5432;Username={dbusername};Password={dbPassword};Database={dbName};";
 
-            try
+            //try
+            //{
+            //    CreateDB(dbName, connectionString);
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+
+            //try
+            //{
+            //    CreateTables(connectionDBString);
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+
+            //try
+            //{
+            //    DataGenerator.InsertRandomData(connectionDBString);
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+
+            //try
+            //{
+            //    DataGenerator.CreateIndices(connectionDBString);
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+
+            Service.connectionString = connectionDBString;
+
+            List<List<string>> users = Service.GetData("Person");
+            foreach (var user in users)
             {
-                CreateDB(dbName, connectionString);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
+                foreach (var data in user)
+                {
+                    Console.Write(data.ToString() + " ");
+                }
+                Console.WriteLine();
             }
 
-            try
+            List<List<string>> admins = Service.SelectUserByType("Person");
+            foreach (var admin in admins)
             {
-                CreateTables(connectionDBString);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+                foreach (var data in admin)
+                {
+                    Console.Write(data.ToString() + " ");
+                }
+                Console.WriteLine();
 
-            try
-            {
-                DataGenerator.InsertRandomData(connectionDBString);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            try
-            {
-                DataGenerator.CreateIndices(connectionDBString);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
             }
         }
 
